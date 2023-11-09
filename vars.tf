@@ -1,3 +1,3 @@
 variable "env" {}
 variable "vpc" {}
-variable "subnet_cidr" {}
+variable "subnets_cidr" {}
