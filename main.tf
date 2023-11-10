@@ -19,5 +19,10 @@ module "vpc" {
 #}
 
 output "vpc_id" {
-  value = lookup(module.vpc, "main", null)
+  value = lookup(lookup(module.vpc, each.value.vpc_name, null), vpc_id, null)
 }
+output for this
+vpc_id = {
+  "vpc_id" = "vpc-0e0952dda633abb33"
+}
+
