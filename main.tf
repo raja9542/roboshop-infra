@@ -23,10 +23,11 @@ module "subnets" {
   internet_gw                = lookup(each.value, "internet_gw", false )
   nat_gw                     = lookup(each.value, "nat_gw", false )
 
-
-
 }
 
+output "subnet_ids" {
+  value = module.subnets
+}
 
 #output for this
 
