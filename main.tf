@@ -11,12 +11,17 @@ module "subnets" {
   env = var.env
   default_vpc_id = var.default_vpc_id
 
-  for_each = var.subnets
-  cidr_block = each.value.cidr_block
-  availability_zone =each.value.availability_zone
-  name = each.value.name
-  vpc_id = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null) # to get output of map of map variable use lookup function
-  vpc_peering_connection_id = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_peering_connection_id", null)
+  for_each                  = var.subnets
+  cidr_block                = each.value.cidr_block
+  availability_zone         =each.value.availability_zone
+  name                      = each.value.name
+  # to get output of map of map variable use lookup function
+  vpc_id                    = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
+  vpc_peering_connection_id  = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_peering_connection_id", null)
+  # look for each.value for internet_gw if it is there it will give true if not default value false
+  internet_gw                = lookup(each.value, "internet_gw", false )
+  nat_gw                     = lookup(each.value, "nat_gw", false )
+
 
 }
 
