@@ -12,6 +12,10 @@ module "vpc" {
 output "out" {
   value = module.vpc
 }
+
+
+
+
 #module "subnets" {
 #  source = "github.com/raja9542/tf-module-subnets.git"
 #  env = var.env
