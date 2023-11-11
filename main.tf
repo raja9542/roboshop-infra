@@ -9,6 +9,9 @@ module "vpc" {
   availability_zone      = each.value.availability_zone
     }
 
+output "out" {
+  value = module.vpc
+}
 #module "subnets" {
 #  source = "github.com/raja9542/tf-module-subnets.git"
 #  env = var.env
