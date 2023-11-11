@@ -11,6 +11,7 @@ vpc = {
         name              = "public"
         cidr_block        = ["10.0.0.0/24", "10.0.1.0/24"]
         internet_gw       = true
+        create_nat_gw     = true
 
       }
 
@@ -19,7 +20,7 @@ vpc = {
         name              = "web"
         cidr_block        = ["10.0.2.0/24", "10.0.3.0/24"]
         nat_gw            = true
-        create_nat_gw     = true
+
 
       }
 
