@@ -13,6 +13,24 @@ output "out" {
   value = module.vpc
 }
 
+#module "docdb" {
+#  source = "github.com/raja9542/tf-module-docdb.git"
+#  env                    = var.env
+#  subnet_ids             =
+#}
+
+
+
+
+
+
+
+
+
+
+
+
+
 #out = {
 #  "main" = { -----this is from root module
 #    "public_subnet_ids" = { ===from vpc module
