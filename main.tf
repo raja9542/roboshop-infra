@@ -13,11 +13,39 @@ output "out" {
   value = module.vpc
 }
 
-#module "docdb" {
-#  source = "github.com/raja9542/tf-module-docdb.git"
-#  env                    = var.env
-#  subnet_ids             =
-#}
+module "docdb" {
+  source = "github.com/raja9542/tf-module-docdb.git"
+  env                    = var.env
+  for_each               = var.docdb
+#  db private subnet id value from module vpc we need to get
+  subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
+}
+
+//  .... lookup(lookup(lookup(lookup(module.vpc, "main", null), "private_subnet_ids", null), "db", null), "subnet_ids", null) or
+// lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
+// 1.output "private_subnet_ids" {
+//  value = module.private_subnets
+//}
+#"main" = {
+#  "private_subnet_ids" = {
+#    "app" = {
+#      "subnet_ids" = [
+#        "subnet-080452a292443a09f",
+#        "subnet-0e308cabf906cdeef",
+#      ]
+#    }
+#    "db" = {
+#      "subnet_ids" = [
+#        "subnet-0b2d9c660a947d3ef",
+#        "subnet-09b2aa79a5546cef2",
+#      ]
+#    }
+#    "web" = {
+#      "subnet_ids" = [
+#        "subnet-034d11058070bd810",
+#        "subnet-0bdb82984c8117ee2",
+#      ]
+#    }
 
 
 
