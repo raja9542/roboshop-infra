@@ -19,34 +19,52 @@ module "docdb" {
   for_each               = var.docdb
 #  db private subnet id value from module vpc we need to get
   subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
+  vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
+  allow_cidr             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), "app", null), "subnet_ids", null)
+  // we need app subnets only so we are givinp app
 }
 
+
+// for vpc_id we need look in module vpc in that main map we have vpc_id as shown below
 //  .... lookup(lookup(lookup(lookup(module.vpc, "main", null), "private_subnet_ids", null), "db", null), "subnet_ids", null) or
 // lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
 // 1.output "private_subnet_ids" {
 //  value = module.private_subnets
 //}
-#"main" = {
-#  "private_subnet_ids" = {
-#    "app" = {
-#      "subnet_ids" = [
-#        "subnet-080452a292443a09f",
-#        "subnet-0e308cabf906cdeef",
-#      ]
+#    out = {
+#      "main" = {
+#        "private_subnet_ids" = {
+#          "app" = {
+#            "subnet_ids" = [
+#              "subnet-080452a292443a09f",
+#              "subnet-0e308cabf906cdeef",
+#            ]
+#          }
+#          "db" = {
+#            "subnet_ids" = [
+#              "subnet-0b2d9c660a947d3ef",
+#              "subnet-09b2aa79a5546cef2",
+#            ]
+#          }
+#          "web" = {
+#            "subnet_ids" = [
+#              "subnet-034d11058070bd810",
+#              "subnet-0bdb82984c8117ee2",
+#            ]
+#          }
+#        }
+#        "public_subnet_ids" = {
+#          "public" = {
+#            "subnet_ids" = [
+#              "subnet-04013c99c9a9742f8",
+#              "subnet-06a34436a5ae79572",
+#            ]
+#          }
+#        }
+#        "vpc_id" = "vpc-0c99f8911fedcf229"
+#        "vpc_peering_connection_id" = "pcx-0a8878f8fcadfd7e2"
+#      }
 #    }
-#    "db" = {
-#      "subnet_ids" = [
-#        "subnet-0b2d9c660a947d3ef",
-#        "subnet-09b2aa79a5546cef2",
-#      ]
-#    }
-#    "web" = {
-#      "subnet_ids" = [
-#        "subnet-034d11058070bd810",
-#        "subnet-0bdb82984c8117ee2",
-#      ]
-#    }
-
 
 
 
