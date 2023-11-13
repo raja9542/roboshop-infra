@@ -20,8 +20,8 @@ module "docdb" {
 #  db private subnet id value from module vpc we need to get
   subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
   vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
-  allow_cidr             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), "app", null), "subnet_ids", null)
-  // we need app subnets only so we are givinp app
+  allow_cidr             = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
+  // we need app cidrs only  from var.vpc so we are givinp app
 }
 
 
