@@ -56,6 +56,20 @@ module "elasticache" {
   node_type              = each.value.node_type
 }
 
+module "elasticache" {
+  source = "github.com/raja9542/tf-module-rabbitmq.git"
+  env                    = var.env
+  for_each               = var.rabbitmq
+  #  db private subnet id value from module vpc we need to get
+  subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
+  vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
+  allow_cidr             = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
+  // we need app cidrs only  from var.vpc so we are givinp app
+  engine_type            = each.value.engine_type
+  engine_version         = each.value.engine_version
+  host_instance_type     = each.value.host_instance_type
+}
+
 // for vpc_id we need look in module vpc in that main map we have vpc_id as shown below
 //  .... lookup(lookup(lookup(lookup(module.vpc, "main", null), "private_subnet_ids", null), "db", null), "subnet_ids", null) or
 // lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
