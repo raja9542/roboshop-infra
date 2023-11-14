@@ -97,7 +97,7 @@ alb = {
 
   private = {
     vpc_name             = "main"
-    subnets_type          = "private_subnets_ids"
+    subnets_type          = "private_subnet_ids"
     subnets_name         = "app"
 
   }
