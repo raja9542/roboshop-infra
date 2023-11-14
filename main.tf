@@ -68,6 +68,7 @@ module "elasticache" {
   engine_type            = each.value.engine_type
   engine_version         = each.value.engine_version
   host_instance_type     = each.value.host_instance_type
+  deployment_mode        = each.value.deployment_mode
 }
 
 // for vpc_id we need look in module vpc in that main map we have vpc_id as shown below
