@@ -60,7 +60,7 @@ rds = {
     engine               = "aurora-mysql"
     engine_version       = "5.7.mysql_aurora.2.12.0.1"
     number_of_instances  = 1
-    instance_class       = "db.t3.small"
+    instance_class       = "db.t3.medium"
 
   }
 }
