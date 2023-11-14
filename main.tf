@@ -80,6 +80,7 @@ module "alb" {
   vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
   allow_cidr             = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
   subnets_name           = each.value.subnets_name
+  internal               = each.value.internal
 }
 
 // for each.value.subnet_type we are referring the output values from vpc module.. so the names in main.tfvars should be according to that(public_subnet_ids,private_subnte_ids)

@@ -88,17 +88,23 @@ rabbitmq = {
 }
 
 alb = {
+
   public= {
     vpc_name             = "main"
     subnets_type         = "public_subnet_ids"
     subnets_name         = "public"
+    internal             = false
 
   }
 
   private = {
     vpc_name             = "main"
-    subnets_type          = "private_subnet_ids"
+    subnets_type         = "private_subnet_ids"
     subnets_name         = "app"
+    internal             = true
 
   }
 }
+# An internal load balancer routes requests from clients to targets using private IP addresses. if internal true it is internal load balancer
+# if internal false it is Internet-facing
+# An internet-facing load balancer routes requests from clients over the internet to targets. Requires a public subnet.
