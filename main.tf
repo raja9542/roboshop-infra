@@ -71,16 +71,18 @@ module "rabbitmq" {
   deployment_mode        = each.value.deployment_mode
 }
 
-#module "alb" {
-#  source = "github.com/raja9542/tf-module-alb.git"
-#  env                    = var.env
-#  for_each               = var.alb
-#  #  db private subnet id value from module vpc we need to get
-#  subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), each.value.subnets_type, null), each.value.subnets_name, null), "subnet_ids", null)
-#  vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
-#  allow_cidr             = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), each.value.subnets_type, null), "app", null), "cidr_block", null)
-#}
+module "alb" {
+  source = "github.com/raja9542/tf-module-alb.git"
+  env                    = var.env
+  for_each               = var.alb
+  #  db private subnet id value from module vpc we need to get
+  subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), each.value.subnets_type, null), each.value.subnets_name, null), "subnet_ids", null)
+  vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
+  allow_cidr             = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
+  subnets_name           = each.value.subnets_name
+}
 
+// for each.value.subnet_type we are referring the output values from vpc module.. so the names in main.tfvars should be according to that(public_subnet_ids,private_subnte_ids)
 // for vpc_id we need look in module vpc in that main map we have vpc_id as shown below
 //  .... lookup(lookup(lookup(lookup(module.vpc, "main", null), "private_subnet_ids", null), "db", null), "subnet_ids", null) or
 // lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
