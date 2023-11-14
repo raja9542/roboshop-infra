@@ -56,7 +56,7 @@ module "elasticache" {
   node_type              = each.value.node_type
 }
 
-module "elasticache" {
+module "rabbitmq" {
   source = "github.com/raja9542/tf-module-rabbitmq.git"
   env                    = var.env
   for_each               = var.rabbitmq
