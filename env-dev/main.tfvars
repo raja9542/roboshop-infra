@@ -57,10 +57,22 @@ rds = {
   main = {
     vpc_name             = "main"
     subnets_name         = "db"
-    engine               = "mysql"
-    engine_version       = "5.7.mysql_aurora.2.03.2"
+    engine               = "aurora-mysql"
+    engine_version       = "5.7.mysql_aurora.2.12.0.1"
     number_of_instances  = 1
-    instance_class       = "db.t3.micro"
+    instance_class       = "db.t3.small"
 
   }
 }
+
+elasticache = {
+  main = {
+    vpc_name             = "main"
+    subnets_name         = "db"
+    num_node_groups         = 2
+    replicas_per_node_group = 1
+    node_type            = "cache.t3.micro"
+
+  }
+}
+
