@@ -91,6 +91,10 @@ module "apps" {
   allow_cidr               = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), each.value.allow_cidr_subnets_type, null), each.value.allow_cidr_subnets_name, null), "cidr_block", null)
   component                = each.value.component
   app_port                 = each.value.app_port
+  max_size                 = each.value.max_size
+  min_size                 = each.value.min_size
+  desired_capacity         = each.value.desired_capacity
+  instance_type            = each.value.instance_type
 }
 
 // for each.value.subnet_type we are referring the output values from vpc module.. so the names in main.tfvars should be according to that(public_subnet_ids,private_subnte_ids)
