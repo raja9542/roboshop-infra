@@ -95,6 +95,7 @@ module "apps" {
   min_size                 = each.value.min_size
   desired_capacity         = each.value.desired_capacity
   instance_type            = each.value.instance_type
+  bastion_cidr             = var.bastion_cidr
 }
 
 // for each.value.subnet_type we are referring the output values from vpc module.. so the names in main.tfvars should be according to that(public_subnet_ids,private_subnte_ids)
