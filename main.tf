@@ -75,12 +75,23 @@ module "alb" {
   source = "github.com/raja9542/tf-module-alb.git"
   env                    = var.env
   for_each               = var.alb
-  #  db private subnet id value from module vpc we need to get
   subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), each.value.subnets_type, null), each.value.subnets_name, null), "subnet_ids", null)
   vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
   allow_cidr             = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
   subnets_name           = each.value.subnets_name
   internal               = each.value.internal
+}
+
+module "apps" {
+  source = "github.com/raja9542/tf-module-app.git"
+  env                    = var.env
+  for_each               = var.apps
+  subnet_ids             = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), each.value.subnets_type, null), each.value.subnets_name, null), "subnet_ids", null)
+  vpc_id                 = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
+  allow_cidr             = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
+  subnets_name           = each.value.subnets_name
+  component              = each.value.component
+  app_port               = each.value.app_port
 }
 
 // for each.value.subnet_type we are referring the output values from vpc module.. so the names in main.tfvars should be according to that(public_subnet_ids,private_subnte_ids)
