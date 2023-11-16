@@ -100,7 +100,7 @@ module "apps" {
   bastion_cidr             = var.bastion_cidr
 }
 
-output "redis" {
+output "rds" {
   value = module.rds
 }
 
