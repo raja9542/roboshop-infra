@@ -101,7 +101,7 @@ module "apps" {
 }
 
 output "redis" {
-  value = module.elasticache
+  value = module.rds
 }
 
 
