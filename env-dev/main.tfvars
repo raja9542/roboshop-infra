@@ -70,7 +70,7 @@ elasticache = {
   main = {
     vpc_name                   = "main"
     subnets_name               = "db"
-    engine_version             = 6.x   # for our app we need 6.3 or 6.x
+    engine_version             = "6.x"   # for our app we need 6.3 or 6.x
     num_cache_nodes            = 1
     node_type                  = "cache.t3.micro"
 
