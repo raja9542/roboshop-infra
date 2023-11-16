@@ -68,11 +68,11 @@ rds = {
 
 elasticache = {
   main = {
-    vpc_name             = "main"
-    subnets_name         = "db"
-    num_node_groups         = 1
-    replicas_per_node_group = 1
-    node_type            = "cache.t3.micro"
+    vpc_name                   = "main"
+    subnets_name               = "db"
+    engine_version             = 6.0   # for our app we need 6.3 or 6.x
+    num_cache_nodes            = 1
+    node_type                  = "cache.t3.micro"
 
   }
 }
