@@ -100,6 +100,10 @@ module "apps" {
   bastion_cidr             = var.bastion_cidr
 }
 
+output "redis" {
+  value = module.elasticache
+}
+
 // for each.value.subnet_type we are referring the output values from vpc module.. so the names in main.tfvars should be according to that(public_subnet_ids,private_subnte_ids)
 // for vpc_id we need look in module vpc in that main map we have vpc_id as shown below
 //  .... lookup(lookup(lookup(lookup(module.vpc, "main", null), "private_subnet_ids", null), "db", null), "subnet_ids", null) or
