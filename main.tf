@@ -110,7 +110,26 @@ output "redis" {
 #}
  # result:
 
-
+#redis = {
+#  "main" = {
+#    "redis" = {
+#      "apply_immediately" = tobool(null)
+#      "arn" = "arn:aws:elasticache:us-east-1:994733300076:cluster:dev-elasticache"
+#      "auto_minor_version_upgrade" = "true"
+#      "availability_zone" = "us-east-1a"
+#      "az_mode" = "single-az"
+#      "cache_nodes" = tolist([
+#        {
+#          "address" = "dev-elasticache.ea5ont.0001.use1.cache.amazonaws.com"
+#          "availability_zone" = "us-east-1a"
+#          "id" = "0001"
+#          "outpost_arn" = ""
+#          "port" = 6379
+#        },
+#      ])
+#      "cluster_address" = tostring(null)
+#      "cluster_id" = "dev-elasticache"
+#      "configuration_endpoint" = tostring(null)
 
 
 // for each.value.subnet_type we are referring the output values from vpc module.. so the names in main.tfvars should be according to that(public_subnet_ids,private_subnte_ids)
