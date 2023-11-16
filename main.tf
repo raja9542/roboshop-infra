@@ -100,7 +100,7 @@ module "apps" {
   bastion_cidr             = var.bastion_cidr
 }
 
-output "rds" {
+output "rds-endpoint" {
   value = module.rds
 }
 
