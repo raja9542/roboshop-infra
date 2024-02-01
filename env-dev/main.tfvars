@@ -61,7 +61,7 @@ rds = {
     vpc_name             = "main"
     subnets_name         = "db"
     engine               = "aurora-mysql"
-    engine_version       = "5.7.mysql_aurora.2.03.2"
+    engine_version       = "5.7.mysql_aurora.2.11.3"
     number_of_instances  = 1
     instance_class       = "db.t3.medium"
 
